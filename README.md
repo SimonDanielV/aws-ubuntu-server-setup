@@ -147,7 +147,7 @@ $ pip3 install flask
 ## test
 
 
-# Deploy the web application
+## Deploy the web application
 
 With the other packages `libapache2-mod-wsgi-py3` and `apache2` (already
 installed), we can deploy our web app.
