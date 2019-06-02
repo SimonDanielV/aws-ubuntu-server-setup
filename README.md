@@ -196,7 +196,7 @@ browser. You should see that your web application is deployed@
 
 ## sources
 
-https://www.jakowicz.com/flask-apache-wsgi/
-https://medium.com/@satyavinay456/deploying-flask-application-using-wsgi-server-with-apache2-on-aws-cloud-ubuntu-machine-b7a15ca25cff
-https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts
-https://www.inmotionhosting.com/support/website/git/how-to-add-ssh-keys-to-your-github-account
+- https://www.jakowicz.com/flask-apache-wsgi/
+- https://medium.com/@satyavinay456/deploying-flask-application-using-wsgi-server-with-apache2-on-aws-cloud-ubuntu-machine-b7a15ca25cff
+- https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts
+- https://www.inmotionhosting.com/support/website/git/how-to-add-ssh-keys-to-your-github-account
