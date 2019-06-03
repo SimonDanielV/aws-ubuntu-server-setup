@@ -84,8 +84,8 @@ Create a directory called `web`:
 $ sudo mkdir www
 ```
 
-Altough it is first all the most important thing to get your web application
-deployed, it is already a good iead to make a distingtion between a production
+Although it is first all the most important thing to get your web application
+deployed, it is already a good idea to make a distinction between a production
 and a development environment. If you would like to do this as well, type in
 the following commands:
 
