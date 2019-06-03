@@ -192,7 +192,7 @@ $ sudo service apache2 start
 ```
 
 Type `ec0-00-00-000-000.eu-central-1.compute.amazonaws.com` in your url on your
-browser. You should see that your web application is deployed@
+browser. You should see that your web application is deployed!
 
 ## sources
 
