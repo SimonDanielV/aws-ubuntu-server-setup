@@ -48,7 +48,7 @@ settings. After generating your rsa key pair, print your public key in the
 console by the following command and copy the whole string.
 
 ```bash
-$ ~.ssh/cat id_rsa.pub
+$ ~/.ssh/cat id_rsa.pub
 ```
 
 Open your Github account, go to settings, click on SSH and GPG keys and click
@@ -75,10 +75,10 @@ $ ../..
 And change directory to:
 
 ```bash
-$ var
+$ var/
 ```
 
-Create a directory called `web`:
+Create a directory called `www`:
 
 ```bash
 $ sudo mkdir www
@@ -159,7 +159,7 @@ $ ~/../../etc/apache2/sites-available
 $ sudo nano webapp.conf
 ```
 
-Now paste in the following text into the webapp.conf:
+Paste in the following text to the `webapp.conf` file:
 
 ```bash
 <VirtualHost *:80>
@@ -183,7 +183,7 @@ Hit `control+X`, `y` and `enter` to save changes.
 
 ## Start Server
 
-Now it's time the start the server to see if everything is working.
+Start up the server and check out if your web application is running of the IP.
 
 ```bash
 $ sudo a2ensite webapp.conf
@@ -191,10 +191,10 @@ $ sudo a2enmod wsgi
 $ sudo service apache2 start
 ```
 
-Type `ec0-00-00-000-000.eu-central-1.compute.amazonaws.com` in your url on your
+Type `ec0-00-00-000-000.eu-central-1.compute.amazonaws.com` in your url on the
 browser. You should see that your web application is deployed!
 
-## sources
+## Used sources
 
 - https://www.jakowicz.com/flask-apache-wsgi/
 - https://medium.com/@satyavinay456/deploying-flask-application-using-wsgi-server-with-apache2-on-aws-cloud-ubuntu-machine-b7a15ca25cff
