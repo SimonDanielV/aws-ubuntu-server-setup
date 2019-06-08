@@ -169,7 +169,7 @@ Install Flask:
 $ pip3 install flask
 ```
 
-## test
+## Debug
 
 
 ## Deploy the web application
