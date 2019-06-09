@@ -305,7 +305,7 @@ If you would like to secure an extra alias of your domain, for example
 www.example.com, while this one is not already redirected, you can do this by
 editing your `example.com.conf` file.
 
-## redirect Alias to secured later on.
+## Redirect Alias to secured later on
 
 When you had not filled in a ServerAlias (for example: www.example.com) in the
 `example.com.conf` file, this alias will not automatticly redirect to HTTPS
