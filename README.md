@@ -192,8 +192,8 @@ Paste in the following text to the `example.com.conf` file:
 ```bash
 <VirtualHost *:80>
 
-    ServerName ec2-0-00-000-000.compute-1.amazonaws.com
-    ServerAlias www.ec2-0-00-000-000.compute-1.amazonaws.com
+    ServerName example.com
+    ServerAlias www.example.com
     ServerAdmin example@example.com
 
     WSGIScriptAlias / /var/www/dev/repository-name/web/app.wsgi
@@ -301,36 +301,44 @@ following command.
 $ sudo certbot renew --dry-run
 ```
 
-If you would like to secure also an alias of your domain, for example
-www.example.com, you can do this by editing your `example.com.conf` file.
+If you would like to secure an extra alias of your domain, for example
+www.example.com, while this one is not already redirected, you can do this by
+editing your `example.com.conf` file.
+
+## redirect Alias to secured later on.
+
+When you had not filled in a ServerAlias (for example: www.example.com) in the
+`example.com.conf` file, this alias will not automatticly redirect to HTTPS
+secured domain when you add this alias later on. To create a correct redirect
+for an Alias later on, follow the steps below.
+
+Certbot has added some content in the `example.com.conf` file to redirect your
+original domain to the secured one. This content will look like the following
+example.
+
+```bash
+RewriteEngine on
+RewriteCond %{SERVER_NAME} =example.com [OR]
+RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+```
+
+Add a `RewriteCond` for your domain alias so that the rewrite engine will look
+like the second example.
 
 ```bash
 $ sudo nano /etc/apache2/sites-available/example.com.conf
 ```
 
-Certbot has edit some content here to redirect your domain to the secured one.
-This content will look like the following:
-
 ```bash
 RewriteEngine on
-RewriteCond %{SERVER_NAME} =ec2-0-00-000-000.eu-central-1.compute.amazonaws.com [OR]
-RewriteCond %{SERVER_NAME} =example.com [OR]
-RewriteCond %{SERVER_NAME} =www.ec2-0-00-000-000.eu-central-1.compute.amazonaws.com
-RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
-```
-
-Add a `RewriteCond` for your domain alias so that the rewrite engine will look
-like the following:
-
-```bash
-RewriteEngine on
-RewriteCond %{SERVER_NAME} =ec2-0-00-000-000.eu-central-1.compute.amazonaws.com [OR]
-RewriteCond %{SERVER_NAME} =example.com [OR]
+RewriteCond %{SERVER_NAME} =example.com
 RewriteCond %{SERVER_NAME} =www.example.com [OR]
-RewriteCond %{SERVER_NAME} =www.ec2-0-00-000-000.eu-central-1.compute.amazonaws.com
 RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
 ```
 
+Now your alias will be redirected to the domain that is secured by an HTTPS
+connection. Note: don't forget to add the ServerAlias `example.com.conf` as
+well.
 
 ## Used sources
 
