@@ -305,7 +305,7 @@ If you would like to secure an extra alias of your domain, for example
 www.example.com, while this one is not already redirected, you can do this by
 editing your `example.com.conf` file.
 
-## Redirect Alias to secured later on
+## Redirect Alias to secured domain later on
 
 When you had not filled in a ServerAlias (for example: www.example.com) in the
 `example.com.conf` file, this alias will not automatticly redirect to HTTPS
@@ -336,7 +336,7 @@ RewriteCond %{SERVER_NAME} =www.example.com [OR]
 RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
 ```
 
-Now your alias will be redirected to the domain that is secured by an HTTPS
+Now your Alias will be redirected to the domain that is secured by an HTTPS
 connection. Note: don't forget to add the ServerAlias `example.com.conf` as
 well.
 
