@@ -177,14 +177,17 @@ $ pip3 install flask
 With the other packages `libapache2-mod-wsgi-py3` and `apache2` (already
 installed), we can deploy our web app.
 
-Change directory to the following and create a `webapp.conf` file:
+Change directory to the following and create a `webapp.conf` file. It is
+recommended to change the `webapp` part in the file name to your own domain
+name, for example `example.com`. In this case your file name will be
+`example.com.conf`:
 
 ```bash
 $ cd /etc/apache2/sites-available
-$ sudo nano webapp.conf
+$ sudo nano example.com.conf
 ```
 
-Paste in the following text to the `webapp.conf` file:
+Paste in the following text to the `example.com.conf` file:
 
 ```bash
 <VirtualHost *:80>
@@ -215,7 +218,7 @@ Hit `control+X`, `y` and `enter` to save changes.
 Enable your custom configuration settings with the following commands.
 
 ```bash
-$ sudo a2ensite webapp.conf
+$ sudo a2ensite example.com.conf
 $ sudo a2enmod wsgi
 ```
 
@@ -241,6 +244,94 @@ $ sudo service apache2 start
 Type `ec0-00-00-000-000.eu-central-1.compute.amazonaws.com` in your url on the
 browser. You should see that your web application is deployed!
 
+## From HTTP to HTTPS (optional)
+
+If you want to encrypt your web application by using an SSL certificate,
+then use the following steps. This steps will encrypt your web application with
+a free SSL certificate by 'Let's Encrypt'.
+
+Install some dependencies with the following commands.
+
+```bash
+$ sudo apt-get update
+$ sudo apt-get install software-properties-common
+$ sudo add-apt-repository universe
+```
+
+Add the repository `certbot` to your instance.
+
+```bash
+$ sudo add-apt-repository ppa:certbot/certbot
+$ sudo apt-get update
+```
+
+Install a SSL certificate.
+
+```bash
+$ sudo apt-get install --reinstall ca-certificates
+$ sudo update-ca-certificates
+```
+
+Install certbot.
+
+```bash
+$ sudo apt-get install certbot python-certbot-apache
+```
+
+Set up the certificate for your domain.
+
+```bash
+sudo certbot --apache -d example.com
+```
+
+Just to best sure, restart the apache server.
+
+```bash
+$ sudo service apache2 restart
+```
+
+Enter your emailadress and answer some questions from certbot to continue.
+
+Your web application is now secured!
+
+Your SSL certificate is valid for 90 days. To automate renewal, enter the
+following command.
+
+```bash
+$ sudo certbot renew --dry-run
+```
+
+If you would like to secure also an alias of your domain, for example
+www.example.com, you can do this by editing your `example.com.conf` file.
+
+```bash
+$ sudo nano /etc/apache2/sites-available/example.com.conf
+```
+
+Certbot has edit some content here to redirect your domain to the secured one.
+This content will look like the following:
+
+```bash
+RewriteEngine on
+RewriteCond %{SERVER_NAME} =ec2-0-00-000-000.eu-central-1.compute.amazonaws.com [OR]
+RewriteCond %{SERVER_NAME} =example.com [OR]
+RewriteCond %{SERVER_NAME} =www.ec2-0-00-000-000.eu-central-1.compute.amazonaws.com
+RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+```
+
+Add a `RewriteCond` for your domain alias so that the rewrite engine will look
+like the following:
+
+```bash
+RewriteEngine on
+RewriteCond %{SERVER_NAME} =ec2-0-00-000-000.eu-central-1.compute.amazonaws.com [OR]
+RewriteCond %{SERVER_NAME} =example.com [OR]
+RewriteCond %{SERVER_NAME} =www.example.com [OR]
+RewriteCond %{SERVER_NAME} =www.ec2-0-00-000-000.eu-central-1.compute.amazonaws.com
+RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+```
+
+
 ## Used sources
 
 - https://www.jakowicz.com/flask-apache-wsgi/
@@ -249,3 +340,7 @@ browser. You should see that your web application is deployed!
 - https://www.inmotionhosting.com/support/website/git/how-to-add-ssh-keys-to-your-github-account
 - https://askubuntu.com/questions/46331/how-to-avoid-using-sudo-when-working-in-var-www/46371#46371
 - https://askubuntu.com/questions/629995/apache-not-able-to-restart
+
+- https://www.youtube.com/watch?v=7Bo78eDEy7g
+- https://certbot.eff.org/lets-encrypt/ubuntubionic-apache
+- https://stackoverflow.com/questions/43308552/filenotfounderror-add-apt-repository-ppacertbot-certbot
