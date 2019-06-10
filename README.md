@@ -348,7 +348,6 @@ well.
 - https://www.inmotionhosting.com/support/website/git/how-to-add-ssh-keys-to-your-github-account
 - https://askubuntu.com/questions/46331/how-to-avoid-using-sudo-when-working-in-var-www/46371#46371
 - https://askubuntu.com/questions/629995/apache-not-able-to-restart
-
 - https://www.youtube.com/watch?v=7Bo78eDEy7g
 - https://certbot.eff.org/lets-encrypt/ubuntubionic-apache
 - https://stackoverflow.com/questions/43308552/filenotfounderror-add-apt-repository-ppacertbot-certbot
